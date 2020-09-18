@@ -13,14 +13,10 @@ import demo.models.Film;
 import demo.repositories.FilmRepository;
 
 @Service
-public class FilmService {
+public class FilmService extends GenericService<Film>{
 
 	@Autowired
 	private FilmRepository repository;
-	
-	public List<Film> findAll(){
-		return this.repository.findAll();
-	}
 	
 	public Film save(Film entity) {
 	    entity.setSaveAt(LocalDate.now());;
@@ -31,9 +27,8 @@ public class FilmService {
 		}
 		
 	}
-	
-	public Film findById(Long id) {
-		// retourne un Status 400 si aucun film ne perte l'id donné en param
-		return this.repository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+	public Film search(String titre){
+		return this.repository.searchFilm(titre);
 	}
 }

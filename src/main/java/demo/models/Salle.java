@@ -1,40 +1,30 @@
 package demo.models;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-
-
 @Entity
-@Table(name = "realisateur")
-@NoArgsConstructor
-@AllArgsConstructor
-public class Realisateur {
+public class Salle {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Column(name = "nom")
+	@Column(name="nom")
 	private String nom;
 	
-	@Column(name = "films")
-	@OneToMany(mappedBy = "realisateur")
+	@ManyToMany(mappedBy = "salles")
 	@JsonIgnore
-	private Set<Film> films = new HashSet<>();
+	private List<Film> films = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -52,13 +42,12 @@ public class Realisateur {
 		this.nom = nom;
 	}
 
-	public Set<Film> getFilms() {
+	public List<Film> getFilms() {
 		return films;
 	}
 
-	public void setFilms(Set<Film> films) {
+	public void setFilms(List<Film> films) {
 		this.films = films;
 	}
-	
 	
 }

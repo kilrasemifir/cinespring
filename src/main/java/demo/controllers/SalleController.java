@@ -11,34 +11,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import demo.models.Film;
-import demo.services.FilmService;
+import demo.models.Salle;
+import demo.services.SalleService;
 
 @RestController
 @CrossOrigin
-@RequestMapping("films")
-public class FilmController {
+@RequestMapping("salles")
+public class SalleController {
 
 	@Autowired
-	private FilmService service;
+	private SalleService service;
 	
 	@GetMapping("")
-	public List<Film> findAll(){
+	public List<Salle> findAll(){
 		return this.service.findAll();
 	}
 	
 	@GetMapping("{id}")
-	public Film findById(@PathVariable Long id) {
+	public Salle findById(@PathVariable Long id) {
 		return this.service.findById(id);
 	}
 	
 	@PostMapping("")
-	public Film save(@RequestBody Film entity) {
+	public Salle save(@RequestBody Salle entity) {
 		return this.service.save(entity);
 	}
-	
-	@GetMapping("titre/{titre}")
-	public Film search(@PathVariable String titre){
-		return this.service.search(titre);
-	}
+
 }

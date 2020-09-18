@@ -1,6 +1,8 @@
 package demo.models;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,19 +11,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 //@Table(name = "films")
 @NoArgsConstructor
-@AllArgsConstructor
 public class Film {
 
 	@Id
@@ -59,6 +60,13 @@ public class Film {
 	@ManyToOne
 	@JoinColumn(name="realisateur_id")
 	private Realisateur realisateur;
+	
+	@ManyToMany
+	@JoinTable(
+			name = "salle_film",
+			joinColumns = @JoinColumn(name = "film_id"),
+			inverseJoinColumns = @JoinColumn(name = "salle_id"))
+	private List<Salle> salles = new ArrayList<>();
 	
 	public void setSaveAt(LocalDate date) {
 		this.saveAt = date;
@@ -123,5 +131,14 @@ public class Film {
 	public LocalDate getSaveAt() {
 		return saveAt;
 	}
+
+	public List<Salle> getSalles() {
+		return salles;
+	}
+
+	public void setSalles(List<Salle> salles) {
+		this.salles = salles;
+	}
+	
 	
 }
